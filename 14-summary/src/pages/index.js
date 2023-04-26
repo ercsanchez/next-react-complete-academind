@@ -29,23 +29,23 @@ export default function HomePage(props) {
   return <MeetupList meetups={props.meetups} />;
 }
 
-export async function getServerSideProps(context) {
-  const req = context.req;
-  const res = context.res;
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
 
-  // insert code to fetch data from an API / DB calls / Filesystem operations
+//   // insert code to fetch data from an API / DB calls / Filesystem operations
 
-  return { props: { meetups: DUMMY_MEETUPS } };
-}
+//   return { props: { meetups: DUMMY_MEETUPS } };
+// }
 
 // SSG - static site generation
-// export async function getStaticProps() {
-//   // insert code to fetch data from an API / DB calls / Filesystem operations
-//   return {
-//     props: {
-//       meetups: DUMMY_MEETUPS,
-//     },
-//     // ISR
-//     revalidate: 10,
-//   };
-// }
+export async function getStaticProps() {
+  // insert code to fetch data from an API / DB calls / Filesystem operations
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+    // ISR
+    revalidate: 10,
+  };
+}
