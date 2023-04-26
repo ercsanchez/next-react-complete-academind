@@ -1,0 +1,16 @@
+.details {
+  text-align: center;
+}
+
+.details img {
+  width: 100%;
+}
+
+/* this will also work */
+/* section.details {
+  text-align: center;
+}
+
+section.details img {
+  width: 100%;
+} */
