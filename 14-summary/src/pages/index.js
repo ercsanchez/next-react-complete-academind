@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 import MeetupList from '../../components/meetups/MeetupList';
 
@@ -19,9 +19,22 @@ const DUMMY_MEETUPS = [
   },
 ];
 
-export default function HomePage() {
+export default function HomePage(props) {
   // client-side rerender with data
-  const [fetchedMeetups, setFetchedMeetups] = useState([]);
-  useEffect(() => setFetchedMeetups(DUMMY_MEETUPS), []);
-  return <MeetupList meetups={fetchedMeetups} />;
+  // const [fetchedMeetups, setFetchedMeetups] = useState([]);
+  // useEffect(() => setFetchedMeetups(DUMMY_MEETUPS), []);
+  // return <MeetupList meetups={fetchedMeetups} />;
+  //
+  // SSG - static site generation
+  return <MeetupList meetups={props.meetups} />;
+}
+
+// SSG - static site generation
+export async function getStaticProps() {
+  // insert code to fetch data from an API / DB calls / Filesystem operations
+  return {
+    props: {
+      meetups: DUMMY_MEETUPS,
+    },
+  };
 }
