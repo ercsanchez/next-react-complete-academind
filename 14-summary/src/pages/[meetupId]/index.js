@@ -15,9 +15,17 @@ export default function MeetupDetailsPage({ meetupData }) {
 export async function getStaticPaths() {
   // fetch dynamic route/path params from API
 
+  // 404 error if route params not included in paths[]
   return {
-    paths: [{ params: { meetupId: 1 } }, { params: { meetupId: 2 } }],
+    fallback: false,
+    paths: [{ params: { meetupId: '1' } }, { params: { meetupId: '2' } }],
   };
+
+  // SSR dynamic pages w/ route params not included in paths[]
+  // return {
+  //   fallback: true,
+  //   paths: [{ params: { meetupId: '1' } }],
+  // };
 }
 
 export async function getStaticProps(context) {
