@@ -12,6 +12,14 @@ export default function MeetupDetailsPage({ meetupData }) {
   );
 }
 
+export async function getStaticPaths() {
+  // fetch dynamic route/path params from API
+
+  return {
+    paths: [{ params: { meetupId: 1 } }, { params: { meetupId: 2 } }],
+  };
+}
+
 export async function getStaticProps(context) {
   // fetch data from an API / DB calls / Filesystem operations
 
