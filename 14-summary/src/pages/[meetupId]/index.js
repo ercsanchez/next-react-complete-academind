@@ -1,3 +1,4 @@
+import prisma from '../../../lib/prisma';
 import MeetupDetails from '../../../components/meetups/MeetupDetails';
 
 export default function MeetupDetailsPage({ meetupData }) {
@@ -14,11 +15,14 @@ export default function MeetupDetailsPage({ meetupData }) {
 
 export async function getStaticPaths() {
   // fetch dynamic route/path params from API
+  const meetups = await prisma.meetup.findMany({ select: { id: true } });
 
   // 404 error if route params not included in paths[]
   return {
     fallback: false,
-    paths: [{ params: { meetupId: '1' } }, { params: { meetupId: '2' } }],
+    paths: meetups.map(({ id }) => ({
+      params: { meetupId: id.toString() },
+    })),
   };
 
   // SSR dynamic pages w/ route params not included in paths[]
@@ -29,22 +33,25 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  // fetch data from an API / DB calls / Filesystem operations
-
   const meetupId = context.params.meetupId;
-
   // only logs in development server when successfully navigating to dynamic path
-  console.log(meetupId);
+  // console.log(meetupId);
+
+  // fetch data from an API / DB calls / Filesystem operations
+  const foundMeetup = await prisma.meetup.findFirst({
+    where: { id: +meetupId },
+  }); // convert meetupId into number
+  const { id, image, title, address, description } = foundMeetup;
+  console.log('========>', typeof id);
 
   return {
     props: {
       meetupData: {
-        id: meetupId,
-        image:
-          'https://upload.wikimedia.org/wikipedia/commons/8/8a/Magellan%27s_Cross_full.jpg',
-        title: '1st meetup',
-        address: "magellan's cross",
-        description: 'The meetup description',
+        id: id.toString(), // not needed since not being used by <MeetupDetails /> comp
+        image,
+        title,
+        address,
+        description,
       },
     },
   };
