@@ -1,6 +1,7 @@
 // import { useState, useEffect } from 'react';
 
 import MeetupList from '../../components/meetups/MeetupList';
+import prisma from '../../lib/prisma';
 
 export default function HomePage(props) {
   // client-side rerender with data
@@ -26,10 +27,13 @@ export async function getStaticProps() {
   // insert code to fetch data from an API / DB calls / Filesystem operations
 
   // using fetch() made available on the server by next.js
-  const response = await fetch('http://localhost:3000/api/meetups');
-  const { data } = await response.json();
+  // const response = await fetch('http://localhost:3000/api/meetups');
+  // const { data } = await response.json();
   // or
   // const data = await response.json().then((result) => result.data);
+
+  // better solution: directly access DB
+  const data = await prisma.meetup.findMany();
 
   return {
     props: {
