@@ -6,7 +6,12 @@ async function handler(req, res) {
   if (req.method === 'POST') {
     const data = req.body;
 
-    const { title, image, address, description } = data;
+    // const { title, image, address, description } = data;
+    const newMeetup = await prisma.meetup.create({
+      data,
+    });
+    // console.log(newMeetup);
+    res.status(201).json({ message: 'meetup inserted', data: newMeetup });
   }
 
   // test querying db
