@@ -2,23 +2,6 @@
 
 import MeetupList from '../../components/meetups/MeetupList';
 
-const DUMMY_MEETUPS = [
-  {
-    id: 1,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/8/8a/Magellan%27s_Cross_full.jpg',
-    title: '1st meetup',
-    address: "magellan's cross",
-  },
-  {
-    id: 2,
-    image:
-      'https://upload.wikimedia.org/wikipedia/commons/9/9e/Wiki_Loves_Earth_PH_2022_Cebu_Photowalk_%28Bird_Sanctuary%29.jpg',
-    title: '2nd meetup',
-    address: 'bird sanctuary',
-  },
-];
-
 export default function HomePage(props) {
   // client-side rerender with data
   // const [fetchedMeetups, setFetchedMeetups] = useState([]);
@@ -41,9 +24,16 @@ export default function HomePage(props) {
 // SSG - static site generation
 export async function getStaticProps() {
   // insert code to fetch data from an API / DB calls / Filesystem operations
+
+  // using fetch() made available on the server by next.js
+  const response = await fetch('http://localhost:3000/api/meetups');
+  const { data } = await response.json();
+  // or
+  // const data = await response.json().then((result) => result.data);
+
   return {
     props: {
-      meetups: DUMMY_MEETUPS,
+      meetups: data,
     },
     // ISR
     revalidate: 10,

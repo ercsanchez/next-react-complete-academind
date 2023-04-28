@@ -13,12 +13,6 @@ async function handler(req, res) {
     // console.log(newMeetup);
     res.status(201).json({ message: 'meetup inserted', data: newMeetup });
   }
-
-  // test querying db
-  if (req.method === 'GET') {
-    let meetups = await prisma.meetup.findMany();
-    return res.json({ data: meetups });
-  }
 }
 
 export default handler;
