@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma db push && next build",
-    "postinstall": "prisma generate",
+    "build": "next build",
+    "postinstall": "prisma generate && prisma db push",
     "start": "next start",
     "db": "docker compose up -d",
     "db:down": "docker compose down",
