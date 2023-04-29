@@ -27,7 +27,7 @@ export async function getStaticPaths() {
 
   // 404 error if route params not included in paths[]
   return {
-    fallback: false,
+    fallback: 'blocking',
     paths: meetups.map(({ id }) => ({
       params: { meetupId: id.toString() },
     })),
