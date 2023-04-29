@@ -1,15 +1,23 @@
+import Head from 'next/head';
+
 import prisma from '../../../lib/prisma';
 import MeetupDetails from '../../../components/meetups/MeetupDetails';
 
 export default function MeetupDetailsPage({ meetupData }) {
   const { image, title, address, description } = meetupData;
   return (
-    <MeetupDetails
-      image={image}
-      title={title}
-      address={address}
-      description={description}
-    />
+    <>
+      <Head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+      </Head>
+      <MeetupDetails
+        image={image}
+        title={title}
+        address={address}
+        description={description}
+      />
+    </>
   );
 }
 

@@ -1,4 +1,5 @@
 // import { useState, useEffect } from 'react';
+import Head from 'next/head';
 
 import MeetupList from '../../components/meetups/MeetupList';
 import prisma from '../../lib/prisma';
@@ -10,7 +11,18 @@ export default function HomePage(props) {
   // return <MeetupList meetups={fetchedMeetups} />;
   //
   // SSG - static site generation
-  return <MeetupList meetups={props.meetups} />;
+  return (
+    <>
+      <Head>
+        <title>React Meetups</title>
+        <meta
+          name="description"
+          content="Browse a huge list of highly active React meetups!"
+        />
+      </Head>
+      <MeetupList meetups={props.meetups} />
+    </>
+  );
 }
 
 // export async function getServerSideProps(context) {
