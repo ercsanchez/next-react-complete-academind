@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 import classes from './MeetupItem.module.css';
 import Card from '../ui/Card';
@@ -11,11 +12,25 @@ function MeetupItem(props) {
   function showDetailsHandler() {
     router.push(`/${props.id}`);
   }
+
+  // required loader function for <Image/>
+  function myLoader({ src, width, quality }) {
+    return `${src}?w=${width}&q=${quality || 75}`;
+  }
+
   return (
     <li className={classes.item}>
       <Card>
         <div className={classes.image}>
-          <img src={props.image} alt={props.title} />
+          <Image
+            className={classes.special}
+            src={props.image}
+            alt={props.title}
+            loader={myLoader}
+            width={500}
+            height={500}
+            // fill={true} // not working
+          />
         </div>
         <div className={classes.content}>
           <h3>{props.title}</h3>
