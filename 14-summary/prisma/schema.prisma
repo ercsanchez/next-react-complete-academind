@@ -25,4 +25,5 @@ model Meetup {
   description String
   details     String   @default("")
   created_at  DateTime @default(now())
+  updated_at  DateTime @default(now())
 }
