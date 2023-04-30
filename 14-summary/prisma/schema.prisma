@@ -11,9 +11,10 @@ generator client {
 // }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  relationMode      = "prisma"
 }
 
 model Meetup {
@@ -22,4 +23,5 @@ model Meetup {
   image       String
   address     String
   description String
+  details     String @default("")
 }
